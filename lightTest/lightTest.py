@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
-
+import random
 
 
 
@@ -15,10 +14,18 @@ class Space():
         self.beams = 100
 
         self.walls = [
-            [[100,100],[400,200]],
-            [[100,200],[500,800]],
-            [[100,100],[300,700]]
+            #[[100,100],[400,200]],
+            #[[100,200],[500,800]],
+            #[[100,100],[300,700]]
         ]
+
+        for i in range(10):
+            startx = random.randrange(self.worldx)
+            endx = random.randrange(startx, self.worldx)
+            starty = random.randrange(self.worldy)
+            endy = random.randrange(starty, self.worldy)
+            self.walls.append([[startx,starty],[endx,endy]])
+
 
         for wall in self.walls:
             self.add_wall(wall)
@@ -76,13 +83,13 @@ class Space():
 
             xinc = np.sin(beam_angle)
             yinc = np.cos(beam_angle)
-            
 
             while True:
                 self.set_point(light_map, x,y)
 
                 x = x + xinc
                 y = y + yinc
+
                 #edge of world check
                 if((x >= self.worldx) 
                 or (y >= self.worldy)
